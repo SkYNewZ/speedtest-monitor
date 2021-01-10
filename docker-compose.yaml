@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  grafana:
+    image: grafana/grafana:7.1.5
+    volumes:
+      - /root/speedtest-monitor/data/grafana:/var/lib/grafana
+    networks:
+      - speedtest
+    ports:
+      - 127.0.0.1:3000:3000
+    restart: always
+
+  influxdb:
+    image: influxdb:1.8.2
+    volumes:
+      - /root/speedtest-monitor/data/influxdb:/var/lib/influxdb
+    networks:
+      - speedtest
+    ports:
+      - 127.0.0.1:8086:8086
+    restart: always
+
+networks:
+  speedtest:
+    name: speedtest
+    driver: bridge
